@@ -3,6 +3,9 @@ package fp
 import "unsafe"
 
 //go:noescape
+func mul_two_1(a unsafe.Pointer)
+
+//go:noescape
 func mul_two_2(a unsafe.Pointer)
 
 //go:noescape
@@ -22,6 +25,9 @@ func mul_two_7(a unsafe.Pointer)
 
 //go:noescape
 func mul_two_8(a unsafe.Pointer)
+
+//go:noescape
+func div_two_1(a unsafe.Pointer)
 
 //go:noescape
 func div_two_2(a unsafe.Pointer)
@@ -48,6 +54,9 @@ func div_two_8(a unsafe.Pointer)
 func is_even(a unsafe.Pointer) bool
 
 //go:noescape
+func mul1(c, a, b, p unsafe.Pointer, inp uint64)
+
+//go:noescape
 func mul2(c, a, b, p unsafe.Pointer, inp uint64)
 
 //go:noescape
@@ -67,6 +76,9 @@ func mul7(c, a, b, p unsafe.Pointer, inp uint64)
 
 //go:noescape
 func mul8(c, a, b, p unsafe.Pointer, inp uint64)
+
+//go:noescape
+func add1(c, a, b, p unsafe.Pointer)
 
 //go:noescape
 func add2(c, a, b, p unsafe.Pointer)
@@ -90,6 +102,9 @@ func add7(c, a, b, p unsafe.Pointer)
 func add8(c, a, b, p unsafe.Pointer)
 
 //go:noescape
+func sub1(c, a, b, p unsafe.Pointer)
+
+//go:noescape
 func sub2(c, a, b, p unsafe.Pointer)
 
 //go:noescape
@@ -109,6 +124,9 @@ func sub7(c, a, b, p unsafe.Pointer)
 
 //go:noescape
 func sub8(c, a, b, p unsafe.Pointer)
+
+//go:noescape
+func double1(c, a, p unsafe.Pointer)
 
 //go:noescape
 func double2(c, a, p unsafe.Pointer)
@@ -132,6 +150,9 @@ func double7(c, a, p unsafe.Pointer)
 func double8(c, a, p unsafe.Pointer)
 
 //go:noescape
+func _neg1(c, a, p unsafe.Pointer)
+
+//go:noescape
 func _neg2(c, a, p unsafe.Pointer)
 
 //go:noescape
@@ -151,6 +172,9 @@ func _neg7(c, a, p unsafe.Pointer)
 
 //go:noescape
 func _neg8(c, a, p unsafe.Pointer)
+
+//go:noescape
+func eq1(a, b unsafe.Pointer) bool
 
 //go:noescape
 func eq2(a, b unsafe.Pointer) bool
@@ -174,6 +198,9 @@ func eq7(a, b unsafe.Pointer) bool
 func eq8(a, b unsafe.Pointer) bool
 
 //go:noescape
+func cpy1(dst, src unsafe.Pointer)
+
+//go:noescape
 func cpy2(dst, src unsafe.Pointer)
 
 //go:noescape
@@ -193,6 +220,9 @@ func cpy7(dst, src unsafe.Pointer)
 
 //go:noescape
 func cpy8(dst, src unsafe.Pointer)
+
+//go:noescape
+func cmp1(a, b unsafe.Pointer) int8
 
 //go:noescape
 func cmp2(a, b unsafe.Pointer) int8
@@ -216,6 +246,9 @@ func cmp7(a, b unsafe.Pointer) int8
 func cmp8(a, b unsafe.Pointer) int8
 
 //go:noescape
+func addn1(a, b unsafe.Pointer) uint64
+
+//go:noescape
 func addn2(a, b unsafe.Pointer) uint64
 
 //go:noescape
@@ -235,6 +268,9 @@ func addn7(a, b unsafe.Pointer) uint64
 
 //go:noescape
 func addn8(a, b unsafe.Pointer) uint64
+
+//go:noescape
+func subn1(a, b unsafe.Pointer) uint64
 
 //go:noescape
 func subn2(a, b unsafe.Pointer) uint64

@@ -59,6 +59,19 @@ func newField(p []byte) *field {
 	}
 	f.inp = inpT.Uint64()
 	switch f.limbSize {
+	case 1:
+		f.equal = eq1
+		f.copy = cpy1
+		f.cmp = cmp1
+		f.addn = addn1
+		f.subn = subn1
+		f._mul = mul1
+		f._add = add1
+		f._sub = sub1
+		f._double = double1
+		f._neg = _neg1
+		f.div_two = div_two_1
+		f.mul_two = mul_two_1
 	case 2:
 		f.equal = eq2
 		f.copy = cpy2
@@ -282,6 +295,8 @@ func (f *field) toBytes(in fieldElement) []byte {
 
 func (f *field) toBytesNoTransform(in fieldElement) []byte {
 	switch f.limbSize {
+	case 1:
+		return toBytes((*[1]uint64)(in)[:])
 	case 2:
 		return toBytes((*[2]uint64)(in)[:])
 	case 3:
@@ -359,6 +374,8 @@ func newFieldElementFromBytes(in []byte) (fieldElement, int) {
 
 func newFieldElement(limbSize int) fieldElement {
 	switch limbSize {
+	case 1:
+		return unsafe.Pointer(&[1]uint64{})
 	case 2:
 		return unsafe.Pointer(&[2]uint64{})
 	case 3:
