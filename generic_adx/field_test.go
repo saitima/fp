@@ -41,7 +41,8 @@ func randField(limbSize int) *field {
 	rawpbytes := pbig.Bytes()
 	pbytes := make([]byte, byteSize)
 	copy(pbytes[byteSize-len(rawpbytes):], pbig.Bytes())
-	return newField(pbytes)
+	f, _ := newField(pbytes)
+	return f
 }
 
 func debugBytes(a ...[]byte) {
@@ -85,8 +86,8 @@ func BenchmarkField(t *testing.B) {
 		t.Fatalf("bad field construction")
 	}
 	bitSize := limbSize * 64
-	a := field.randFieldElement(rand.Reader)
-	b := field.randFieldElement(rand.Reader)
+	a, _ := field.randFieldElement(rand.Reader)
+	b, _ := field.randFieldElement(rand.Reader)
 	c := field.newFieldElement()
 	t.Run(fmt.Sprintf("%d_add", bitSize), func(t *testing.B) {
 		for i := 0; i < t.N; i++ {
@@ -120,7 +121,7 @@ func TestShift(t *testing.T) {
 	for limbSize := from; limbSize < to+1; limbSize++ {
 		t.Run(fmt.Sprintf("%d_shift", limbSize*64), func(t *testing.T) {
 			field := randField(limbSize)
-			a := field.randFieldElement(rand.Reader)
+			a, _ := field.randFieldElement(rand.Reader)
 			bi := field.toBigNoTransform(a)
 			da := field.newFieldElement()
 			field.copy(da, a)
@@ -178,7 +179,7 @@ func TestCopy(t *testing.T) {
 	for limbSize := from; limbSize < to+1; limbSize++ {
 		t.Run(fmt.Sprintf("%d_copy", limbSize*64), func(t *testing.T) {
 			field := randField(limbSize)
-			a := field.randFieldElement(rand.Reader)
+			a, _ := field.randFieldElement(rand.Reader)
 			b := field.newFieldElement()
 			field.copy(b, a)
 			if !field.equal(a, b) {
@@ -257,8 +258,8 @@ func TestAdditionCrossAgainstBigInt(t *testing.T) {
 				if field.limbSize != limbSize {
 					t.Fatalf("Bad field construction")
 				}
-				a := field.randFieldElement(rand.Reader)
-				b := field.randFieldElement(rand.Reader)
+				a, _ := field.randFieldElement(rand.Reader)
+				b, _ := field.randFieldElement(rand.Reader)
 				c := field.newFieldElement()
 				big_a := field.toBig(a)
 				big_b := field.toBig(b)
@@ -300,8 +301,8 @@ func TestAdditionProperties(t *testing.T) {
 				if field.limbSize != limbSize {
 					t.Fatalf("bad field construction")
 				}
-				a := field.randFieldElement(rand.Reader)
-				b := field.randFieldElement(rand.Reader)
+				a, _ := field.randFieldElement(rand.Reader)
+				b, _ := field.randFieldElement(rand.Reader)
 				c_1 := field.newFieldElement()
 				c_2 := field.newFieldElement()
 				field.add(c_1, a, field.zero)
@@ -341,7 +342,7 @@ func TestAdditionProperties(t *testing.T) {
 				if !field.equal(c_1, c_2) {
 					t.Fatalf("a - b = - ( b - a )")
 				}
-				c_x := field.randFieldElement(rand.Reader)
+				c_x, _ := field.randFieldElement(rand.Reader)
 				field.add(c_1, a, b)
 				field.add(c_1, c_1, c_x)
 				field.add(c_2, a, c_x)
@@ -369,8 +370,8 @@ func TestMultiplicationCrossAgainstBigInt(t *testing.T) {
 				if field.limbSize != limbSize {
 					t.Fatalf("bad field construction")
 				}
-				a := field.randFieldElement(rand.Reader)
-				b := field.randFieldElement(rand.Reader)
+				a, _ := field.randFieldElement(rand.Reader)
+				b, _ := field.randFieldElement(rand.Reader)
 				c := field.newFieldElement()
 				big_a := field.toBig(a)
 				big_b := field.toBig(b)
@@ -394,8 +395,8 @@ func TestMultiplicationProperties(t *testing.T) {
 				if field.limbSize != limbSize {
 					t.Fatalf("bad field construction")
 				}
-				a := field.randFieldElement(rand.Reader)
-				b := field.randFieldElement(rand.Reader)
+				a, _ := field.randFieldElement(rand.Reader)
+				b, _ := field.randFieldElement(rand.Reader)
 				c_1 := field.newFieldElement()
 				c_2 := field.newFieldElement()
 				field.mul(c_1, a, field.zero)
@@ -411,7 +412,7 @@ func TestMultiplicationProperties(t *testing.T) {
 				if !field.equal(c_1, c_2) {
 					t.Fatalf("a * b == b * a")
 				}
-				c_x := field.randFieldElement(rand.Reader)
+				c_x, _ := field.randFieldElement(rand.Reader)
 				field.mul(c_1, a, b)
 				field.mul(c_1, c_1, c_x)
 				field.mul(c_2, c_x, b)
@@ -432,7 +433,7 @@ func TestExponentiation(t *testing.T) {
 				if field.limbSize != limbSize {
 					t.Fatalf("bad field construction")
 				}
-				a := field.randFieldElement(rand.Reader)
+				a, _ := field.randFieldElement(rand.Reader)
 				u := field.newFieldElement()
 				field.exp(u, a, big.NewInt(0))
 				if !field.equal(u, field.one) {
@@ -478,7 +479,7 @@ func TestInversion(t *testing.T) {
 				if !field.equal(u, field.one) {
 					t.Fatalf("(1^-1) == 1)")
 				}
-				a := field.randFieldElement(rand.Reader)
+				a, _ := field.randFieldElement(rand.Reader)
 				field.inverse(u, a)
 				field.mul(u, u, a)
 				if !field.equal(u, field.r) {
