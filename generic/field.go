@@ -43,6 +43,10 @@ type field struct {
 	mul_two  func(a fieldElement)
 }
 
+func NewField(p []byte) (*field, error) {
+	return newField(p)
+}
+
 func newField(p []byte) (*field, error) {
 	var err error
 	f := new(field)
@@ -274,6 +278,10 @@ func (f *field) isValid(fe []byte) bool {
 	return true
 }
 
+func (f *field) NewFieldElement() fieldElement {
+	return f.newFieldElement()
+}
+
 func (f *field) newFieldElement() fieldElement {
 	fe, err := newFieldElement(f.limbSize)
 	if err != nil {
@@ -302,6 +310,9 @@ func (f *field) newFieldElementFromBytesNoTransform(in []byte) (fieldElement, er
 		// panic("this is unexpected")
 	}
 	return fe, nil
+}
+func (f *field) NewFieldElementFromBytes(in []byte) (fieldElement, error) {
+	return f.newFieldElementFromBytes(in)
 }
 
 func (f *field) newFieldElementFromBytes(in []byte) (fieldElement, error) {
@@ -365,6 +376,10 @@ func (f *field) newFieldElementFromBig(a *big.Int) (fieldElement, error) {
 	}
 	f.toMont(fe, fe)
 	return fe, nil
+}
+
+func (f *field) ToBytes(in fieldElement) []byte {
+	return f.toBytes(in)
 }
 
 func (f *field) toBytes(in fieldElement) []byte {
@@ -511,6 +526,10 @@ func padBytes(in []byte, size int) []byte {
 	}
 	copy(out[size-len(in):], in)
 	return out
+}
+
+func (f *field) Inverse(inv, e fieldElement) bool {
+	return f.inverse(inv, e)
 }
 
 func (f *field) inverse(inv, e fieldElement) bool {
