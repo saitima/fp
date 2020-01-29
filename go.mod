@@ -1,4 +1,4 @@
-module github.com/kilic/fp
+module github.com/saitima/fp
 
 go 1.12
 
